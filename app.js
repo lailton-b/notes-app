@@ -1,21 +1,35 @@
 const chalk = require('chalk');
-const command = process.argv[2];
-const output = {
-  add: {
-    text: 'Adding note...',
-    color: 'green',
-  },
-  remove: {
-    text: 'Removing note...',
-    color: 'red',
-  },
-};
+const yargs = require('yargs');
 
-if (command) {
-  const response = output[command];
-  const message = response
-    ? chalk[response.color].bold(response.text)
-    : chalk.red(`Command not found: ${chalk.bold(command)}`);
-
-  console.log(message);
+function messageHandler(message, color) {
+  console.log(chalk[color].bold(message));
 }
+
+const commands = [
+  {
+    command: 'add',
+    describe: 'Add a new note',
+    handler: () => messageHandler('Adding a new note!', 'green'),
+  },
+  {
+    command: 'remove',
+    describe: 'Remove a note',
+    handler: () => messageHandler('Removing the note!', 'red'),
+  },
+  {
+    command: 'list',
+    describe: 'List your notes',
+    handler: () => messageHandler('Listing out all notes!', 'white'),
+  },
+  {
+    command: 'read',
+    describe: 'Read a notes',
+    handler: () => messageHandler('Reading a note!', 'white'),
+  },
+];
+
+commands.forEach((command) => {
+  yargs.command(command);
+});
+
+console.log(yargs.argv);
