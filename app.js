@@ -9,7 +9,29 @@ const commands = [
   {
     command: 'add',
     describe: 'Add a new note',
-    handler: () => messageHandler('Adding a new note!', 'green'),
+    builder: {
+      title: {
+        describe: 'Note title',
+        demandOption: true,
+        type: 'string ',
+      },
+      body: {
+        describe: 'Note body',
+        demandOption: true,
+        type: 'string',
+      },
+    },
+    handler: (argv) => {
+      console.log(chalk.green.bold(`\n---------------\n`));
+      console.log(chalk.green.bold(`New note added!`));
+      console.log(chalk.green.bold(`\n---------------\n`));
+      console.log(
+        chalk.blue.bold('Title: '),
+        chalk.white.bold(`${argv.title}`),
+      );
+      console.log(chalk.blue.bold('Body: '), chalk.white.bold(`${argv.body}`));
+      console.log(`\n`);
+    },
   },
   {
     command: 'remove',
@@ -31,5 +53,4 @@ const commands = [
 commands.forEach((command) => {
   yargs.command(command);
 });
-
-console.log(yargs.argv);
+yargs.parse();
