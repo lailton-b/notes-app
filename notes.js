@@ -59,7 +59,43 @@ const removeNote = (title) => {
   console.log(`\n`);
 };
 
+const getNotes = () => {
+  const notes = loadNotes();
+
+  if (!notes.length) {
+    const message = `No note founds. Try do add some with the ${chalk.white(
+      `"add"`,
+    )} command (;`;
+    const separator = textSeparator(message.length - 10);
+    console.log(chalk.red.bold(separator));
+    console.log(chalk.red.bold(message));
+    console.log(chalk.red.bold(separator));
+
+    return;
+  }
+
+  const message = `Your notes`;
+  const separator = textSeparator(message.length);
+  console.log(chalk.green.bold(separator));
+  console.log(chalk.green.bold(message));
+  console.log(chalk.green.bold(separator));
+
+  notes.forEach(({ title }, index) => {
+    const noteNumber = index + 1;
+    const indexLength = noteNumber.toString().length;
+    const notePrefix = indexLength === 1 ? '00' : indexLength === 2 ? '0' : '';
+    const noteNumberFormatted = `${notePrefix}${noteNumber}`;
+
+    console.log(
+      chalk.blue.bold(`${noteNumberFormatted} -`),
+      chalk.white.bold(`${title}`),
+    );
+  });
+  console.log(`\n`);
+};
+
 module.exports = {
   addNote,
   removeNote,
+  getNotes,
 };
