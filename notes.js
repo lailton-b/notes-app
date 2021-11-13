@@ -40,7 +40,6 @@ const removeNote = (title) => {
     console.log(chalk.red.bold(separator));
     console.log(chalk.red.bold(message));
     console.log(chalk.red.bold(separator));
-    console.log(chalk.blue.bold('Title: '), chalk.white.bold(`${title}`));
 
     return;
   }
@@ -94,8 +93,33 @@ const getNotes = () => {
   console.log(`\n`);
 };
 
+const readNote = (title) => {
+  const notes = loadNotes();
+  const note = notes.find((item) => item.title === title);
+
+  if (!note) {
+    const message = `Note not found: ${chalk.white(`"${title}"`)}`;
+    const separator = textSeparator(message.length - 10);
+    console.log(chalk.red.bold(separator));
+    console.log(chalk.red.bold(message));
+    console.log(chalk.red.bold(separator));
+
+    return;
+  }
+
+  const message = `Your note`;
+  const separator = textSeparator(message.length);
+  console.log(chalk.green.bold(separator));
+  console.log(chalk.green.bold(message));
+  console.log(chalk.green.bold(separator));
+  console.log(chalk.blue.bold('Title:'), chalk.white.bold(`${note.title}`));
+  console.log(chalk.blue.bold('Body:'), chalk.white.bold(`${note.body}`));
+  console.log(`\n`);
+};
+
 module.exports = {
   addNote,
   removeNote,
   getNotes,
+  readNote,
 };
