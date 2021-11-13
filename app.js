@@ -1,6 +1,6 @@
 const chalk = require('chalk');
 const yargs = require('yargs');
-const { addNote } = require('./notes.js');
+const { addNote, removeNote } = require('./notes.js');
 
 function messageHandler(message, color) {
   console.log(chalk[color].bold(message));
@@ -14,7 +14,7 @@ const commands = [
       title: {
         describe: 'Note title',
         demandOption: true,
-        type: 'string ',
+        type: 'string',
       },
       body: {
         describe: 'Note body',
@@ -29,7 +29,16 @@ const commands = [
   {
     command: 'remove',
     describe: 'Remove a note',
-    handler: () => messageHandler('Removing the note!', 'red'),
+    builder: {
+      title: {
+        describe: 'Note title',
+        demandOption: true,
+        type: 'string',
+      },
+    },
+    handler: (argv) => {
+      removeNote(argv.title);
+    },
   },
   {
     command: 'list',
