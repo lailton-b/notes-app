@@ -1,6 +1,6 @@
 const chalk = require('chalk');
 const yargs = require('yargs');
-const { addNote, removeNote } = require('./notes.js');
+const { addNote, removeNote, getNotes } = require('./notes.js');
 
 function messageHandler(message, color) {
   console.log(chalk[color].bold(message));
@@ -44,7 +44,7 @@ const commands = [
     command: 'list',
     describe: 'List your notes',
     handler() {
-      messageHandler('Listing out all notes!', 'white');
+      getNotes();
     },
   },
   {
