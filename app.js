@@ -1,6 +1,6 @@
 const chalk = require('chalk');
 const yargs = require('yargs');
-const { addNote, removeNote, getNotes } = require('./notes.js');
+const { addNote, removeNote, getNotes, readNote } = require('./notes.js');
 
 function messageHandler(message, color) {
   console.log(chalk[color].bold(message));
@@ -49,9 +49,16 @@ const commands = [
   },
   {
     command: 'read',
-    describe: 'Read a notes',
-    handler() {
-      messageHandler('Reading a note!', 'white');
+    describe: 'Read a note',
+    builder: {
+      title: {
+        describe: 'Note title',
+        demandOption: true,
+        type: 'string',
+      },
+    },
+    handler(argv) {
+      readNote(argv.title);
     },
   },
 ];
