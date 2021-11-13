@@ -1,5 +1,6 @@
 const chalk = require('chalk');
 const yargs = require('yargs');
+const { addNote } = require('./notes.js');
 
 function messageHandler(message, color) {
   console.log(chalk[color].bold(message));
@@ -22,15 +23,7 @@ const commands = [
       },
     },
     handler: (argv) => {
-      console.log(chalk.green.bold(`\n---------------\n`));
-      console.log(chalk.green.bold(`New note added!`));
-      console.log(chalk.green.bold(`\n---------------\n`));
-      console.log(
-        chalk.blue.bold('Title: '),
-        chalk.white.bold(`${argv.title}`),
-      );
-      console.log(chalk.blue.bold('Body: '), chalk.white.bold(`${argv.body}`));
-      console.log(`\n`);
+      addNote(argv.title, argv.body);
     },
   },
   {
