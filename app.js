@@ -22,7 +22,7 @@ const commands = [
         type: 'string',
       },
     },
-    handler: (argv) => {
+    handler(argv) {
       addNote(argv.title, argv.body);
     },
   },
@@ -36,19 +36,23 @@ const commands = [
         type: 'string',
       },
     },
-    handler: (argv) => {
+    handler(argv) {
       removeNote(argv.title);
     },
   },
   {
     command: 'list',
     describe: 'List your notes',
-    handler: () => messageHandler('Listing out all notes!', 'white'),
+    handler() {
+      messageHandler('Listing out all notes!', 'white');
+    },
   },
   {
     command: 'read',
     describe: 'Read a notes',
-    handler: () => messageHandler('Reading a note!', 'white'),
+    handler() {
+      messageHandler('Reading a note!', 'white');
+    },
   },
 ];
 
